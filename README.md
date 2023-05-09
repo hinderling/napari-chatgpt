@@ -102,7 +102,7 @@ Install napari in the environment using conda-forge: (important on Apple M1/M2)
 
     conda install -c conda-forge napari     
 
-Install the repo in enbvironment:
+Install the repo in environment:
 
     pip install napari-chatgpt
 
