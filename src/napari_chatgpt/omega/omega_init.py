@@ -23,6 +23,7 @@ from napari_chatgpt.omega.tools.segmentation.cell_nuclei_segmentation import \
 from napari_chatgpt.omega.tools.web_image_search_tool import WebImageSearchTool
 from napari_chatgpt.omega.tools.web_search_tool import WebSearchTool
 from napari_chatgpt.omega.tools.wikipedia_query_tool import WikipediaQueryTool
+from napari_chatgpt.omega.tools.microscope_control_tool import MicroscopeControlTool
 
 
 def initialize_omega_agent(to_napari_queue: Queue = None,
@@ -79,6 +80,10 @@ def initialize_omega_agent(to_napari_queue: Queue = None,
                                                 from_napari_queue=from_napari_queue,
                                                 callback_manager=tool_callback_manager))
         tools.append(NapariViewerQueryTool(llm=tool_llm,
+                                           to_napari_queue=to_napari_queue,
+                                           from_napari_queue=from_napari_queue,
+                                           callback_manager=tool_callback_manager))
+        tools.append(MicroscopeControlTool(llm=tool_llm,
                                            to_napari_queue=to_napari_queue,
                                            from_napari_queue=from_napari_queue,
                                            callback_manager=tool_callback_manager))
