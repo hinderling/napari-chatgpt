@@ -61,14 +61,28 @@ from useq import MDASequence
 
 Examples (don't include in your answer!!!):
 --------
-from useq import MDASequence, Position, Channel, TIntervalDuration
-seq = MDASequence(
-    time_plan={{\"interval\": 0.1, \"loops\": 2}},
-    stage_positions=[(1, 1, 1)],
-    grid_plan={{\"rows\": 2, \"cols\": 2}},
-    z_plan={{\"range\": 3, \"step\": 1}},
-    channels=[{{\"config\": \"DAPI\", \"exposure": 1}}]
-)
+UserRequest: Acquire two loops with 0.1 second interval, capture a 2x2 grid and 3 z steps, in the DAPI channel with 1ms exposure.
+AgentResponse:
+
+def create_acquisition():
+    from useq import MDASequence, Position, Channel, TIntervalDuration
+    seq = MDASequence(
+        time_plan={{\"interval\": 0.1, \"loops\": 2}},
+        stage_positions=[(1, 1, 1)],
+        grid_plan={{\"rows\": 2, \"cols\": 2}},
+        z_plan={{\"range\": 3, \"step\": 1}},
+        channels=[{{\"config\": \"DAPI\", \"exposure": 1}}]
+    )
+    return seq
+
+UserRequest: Acquire an image.
+AgentResponse:
+def create_acquisition():
+    from useq import MDASequence, Position, Channel, TIntervalDuration
+    seq = MDASequence(
+        time_plan={{\"interval\": 0, \"loops\": 1}},
+    )
+    return seq
 
 
 __________________
@@ -321,4 +335,4 @@ class MicroscopeControlTool(NapariBaseTool):
         # run the sequence in a separate thread 
         mmc.run_mda(sequence)
         
-        return f"Success: acquisition started! Successfully added image to viewer. Shape of image is {zarr_array.shape}."
+        return f"Success: acquisition completed! Successfully added image to viewer. Shape of image is {zarr_array.shape}."
